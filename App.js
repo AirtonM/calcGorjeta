@@ -36,6 +36,16 @@ const ResultArea = styled.View`
   align-items: center;
 `;
 
+const ResultItemTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+const ResultItem = styled.Text`
+  font-size: 15px;
+  margin-bottom: 30px;
+`;
+
 export default() => {
 
   const [bill, setBill] = useState('');
@@ -68,7 +78,12 @@ export default() => {
       <ResultArea>
         <ResultItemTitle>Valor da Conta</ResultItemTitle>
         <ResultItem>R$ {parseFloat(bill).toFixed(2)} </ResultItem>
-        
+
+        <ResultItemTitle>Valor da Gorjeta</ResultItemTitle>
+        <ResultItem>R$ {tip.toFixed(2)} </ResultItem>        
+
+        <ResultItemTitle>Valor Total</ResultItemTitle>
+        <ResultItem>R$ {(parseFloat(bill) + tip).toFixed(2)} </ResultItem>
       </ResultArea>
     </Page>
   );

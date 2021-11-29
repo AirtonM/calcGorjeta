@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import styled from "styled-components/native";
 
@@ -59,16 +59,22 @@ export default() => {
   const [bill, setBill] = useState('');
   const [tip, setTip] = useState(0);
   const [pct, setPct] = useState(10);
+  const [total, setTotal] = useState(0);
 
   const calc = () => {
     let nBill = parseFloat(bill); 
 
     if(nBill) {
       setTip ( (pct/100) * nBill );
-    }else {
-      alert("Digite o valor da conta")
     }
   }
+const calcTotal = () => {
+  let tot = bill + tip;
+  setTotal(tot);
+}
+  useEffect(()=>{
+    calc();
+  }, [pct]);
 
   return (
     <Page>
@@ -89,7 +95,7 @@ export default() => {
         <PctItem title="20%" onPress={() => setPct(20)} />
       </PctArea>
 
-      <CalcButton title={`Calcular ${pct}%`} onPress={calc} />
+      <CalcButton title={`Calcular ${pct}%`} onPress={calcTotal} />
 
       {tip > 0 &&
         <ResultArea>
@@ -98,9 +104,12 @@ export default() => {
 
           <ResultItemTitle>Valor da Gorjeta</ResultItemTitle>
           <ResultItem>R$ {tip.toFixed(2) } ({pct}%)</ResultItem>        
-
+          {total > 0 &&
+          <>
           <ResultItemTitle>Valor Total</ResultItemTitle>
           <ResultItem>R$ {(parseFloat(bill) + tip).toFixed(2)} </ResultItem>
+          </>
+          }
         </ResultArea>
       }
     </Page>

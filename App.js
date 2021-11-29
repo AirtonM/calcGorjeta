@@ -64,6 +64,12 @@ export default() => {
         onChangeText={n=>setBill(n)}
       />
       <CalcButton title="Calcular" onPress={calc} />
+
+      <ResultArea>
+        <ResultItemTitle>Valor da Conta</ResultItemTitle>
+        <ResultItem>R$ {parseFloat(bill).toFixed(2)} </ResultItem>
+        
+      </ResultArea>
     </Page>
   );
 }
